@@ -7,12 +7,27 @@ const userController = {
     res.render('signup')
   },
   signUp: (req, res) => {
-    const { name, email, password } = req.body
-    User.create({
-      name,
-      email,
-      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
-    }).then(user => res.redirect('/signin'))
+    const { name, email, password, passwordCheck } = req.body
+    if (password !== passwordCheck) {
+      req.flash('error_messages', '兩次密碼輸入不相同')
+      return res.redirect('/signup')
+    } else {
+      User.findOne({ where: { email } }).then(user => {
+        if (user) {
+          req.flash('error_messages', '此信箱已註冊過')
+          return res.redirect('/signup')
+        } else {
+          User.create({
+            name,
+            email,
+            password: bcrypt.hashSync(password, bcrypt.genSaltSync(10), null)
+          }).then(user => {
+            req.flash('success_message', '註冊成功!')
+            return res.redirect('/signin')
+          })
+        }
+      })
+    }
   }
 }
 

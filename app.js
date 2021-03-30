@@ -1,6 +1,7 @@
 const express = require('express')
 const handlebars = require('express-handlebars')
 const db = require('./models')
+const path = require('path')
 const bodyParser = require('body-parser')
 const flash = require('connect-flash')
 const session = require('express-session')
@@ -26,6 +27,8 @@ app.use((req, res, next) => {
   next()
 })
 
+// app.use('/upload', express.static(__dirname + '/upload'))
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 app.use(methodOverride('_method'))
 
 app.listen(port, () => {

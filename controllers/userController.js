@@ -30,7 +30,7 @@ const userController = {
     }
   },
   signInPage: (req, res) => {
-    res.render('signin')
+    res.render('signIn')
   },
   signIn: (req, res) => {
     req.flash('success_messages', '成功登入！')

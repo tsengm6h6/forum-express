@@ -25,7 +25,7 @@
       <td>{{this.email}}</td>
       <td>{{#if this.isAdmin}} admin {{else}} user {{/if}}</td>
       <td>
-        <form action="/admin/users/{{this.id}}/toggleAdmin" method="POST" style="display: inline;">
+        <form action="/admin/users/{{this.id}}/toggleAdmin?_method=PUT" method="POST" style="display: inline;">
           <button type="submit" class="btn btn-link">{{#if this.isAdmin}}set as user{{else}}set as admin{{/if}}</button>
         </form>
       </td>
